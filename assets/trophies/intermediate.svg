@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="64" height="64"
+     viewBox="0 0 64 64"
+     aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffec8b"/>
+      <stop offset="100%" stop-color="#ffd700"/>
+    </linearGradient>
+  </defs>
+  <!-- Disc -->
+  <circle cx="32" cy="24" r="18" fill="url(#grad-gold)"/>
+  <!-- Handles -->
+  <path d="M22 24 L10 18 L10 14 L22 20" fill="url(#grad-gold)"/>
+  <path d="M42 24 L54 18 L54 14 L42 20" fill="url(#grad-gold)"/>
+  <!-- Stand -->
+  <path d="M20 42 L20 52 H44 L44 42" fill="url(#grad-gold)"/>
+</svg>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="64" height="64"
+     viewBox="0 0 64 64"
+     aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-crystal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a0f0f0"/>
+      <stop offset="100%" stop-color="#00bcd4"/>
+    </linearGradient>
+  </defs>
+  <!-- Star‑like Gem -->
+  <polygon points="32,6 42,24 58,28 46,40 50,56 32,48 14,56 18,40 6,28 22,24"
+           fill="url(#grad-crystal)"/>
+  <!-- Inner Glow -->
+  <circle cx="32" cy="32" r="8" fill="#ffffff55"/>
+</svg>
