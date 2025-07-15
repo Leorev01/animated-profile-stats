@@ -1,0 +1,22 @@
+{
+  "name": "animated-profile-stats",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000A\u0000n\u0000i\u0000m\u0000a\u0000t\u0000e\u0000d\u0000-\u0000S\u0000t\u0000a\u0000t\u0000s\u0000\r\u0000 \u0000",
+  "main": "src/index.html",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Leorev01/Animated-Stats.git"
+  },
+  "author": "Leonardo Revrenna",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Leorev01/Animated-Stats/issues"
+  },
+  "homepage": "https://github.com/Leorev01/Animated-Stats#readme"
+}
