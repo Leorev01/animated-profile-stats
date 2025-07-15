@@ -1,0 +1,36 @@
+.badge {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 5px;
+      font-family: sans-serif;
+      font-weight: bold;
+      color: #fff;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Rarity Colors */
+    .common { background: #d3d3d3; }
+    .uncommon { background: #4caf50; }
+    .rare { background: #2196f3; }
+    .epic { background: #9c27b0; }
+    .legendary { background: #ffd700; color: #333; }
+
+    /* Pulse Animation */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    /* Glow Animation */
+    @keyframes glow {
+      0% { box-shadow: 0 0 5px rgba(255,215,0,0.7); }
+      50% { box-shadow: 0 0 20px rgba(255,215,0,1); }
+      100% { box-shadow: 0 0 5px rgba(255,215,0,0.7); }
+    }
+
+    .common { animation: none; }
+    .uncommon { animation: pulse 2s infinite ease-in-out; }
+    .rare { animation: pulse 1.5s infinite ease-in-out; }
+    .epic { animation: pulse 1.2s infinite ease-in-out; }
+    .legendary { animation: glow 3s infinite ease-in-out; }
