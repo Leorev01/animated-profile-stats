@@ -3,44 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blazing Trophies</title>
+  <title>Profile Card</title>
   <link rel="stylesheet" href="style.css">
   <script type="module" src="script.js"></script>
   <script type="module">
-    document.addEventListener('DOMContentLoad', () => {
-        renderProfileBadges('#my-badges', {
-            username:'Leorev01',
-            token: process.env.GITHUB_CLIENT_SECRET
-        })
-    })
+    import {renderDevCard} from './script.js'
+    document.addEventListener('DOMContentLoaded', () => {
+        renderDevCard('Leorev01', 'container-id')
+      })
+
   </script>
 
 </head>
 <body>
-  <div class="league-container">
-    <div>
-      <img src="../assets/trophies/newbie.svg" class="trophy common">
-      <div class="label common">Newbie</div>
-    </div>
-    <div>
-      <img src="../assets/trophies/beginner.svg" class="trophy uncommon">
-      <div class="label uncommon">Beginner</div>
-    </div>
-    <div>
-      <img src="../assets/trophies/intermediate.svg" class="trophy rare">
-      <div class="label rare">Intermediate</div>
-    </div>
-    <div>
-      <img src="../assets/trophies/expert.svg" class="trophy epic">
-      <div class="label epic">Expert</div>
-    </div>
-    <div>
-      <img src="../assets/trophies/master.svg" class="trophy master">
-      <div class="label master">Master</div>
-    </div>
-    <div>
-      <img src="../assets/trophies/legendary.svg" class="trophy legendary">
-      <div class="label legendary">Legendary</div>
+  <div id="container-id">
+    <div class="dev-card">
+      <div class="dev-heading">
+        <div style="display: flex; flex-direction: column; align-items: flex-start; flex: 1 1 auto;">
+          <span id="dev-exp" class="dev-exp"></span>
+          <h3 id="dev-name"></h3>
+        </div>
+        <span class="hp-badge" id="dev-hp"></span>
+      </div>
+      <img id="dev-avatar" width="80" style="border-radius:50%">
+      <p><b>Skills:</b> <span id="dev-skills"></span></p>
+      <p><b>Special Abilities:</b> <span id="dev-abilities"></span></p>
+      <p><b>Recent Activity:</b> <span id="dev-activity"></span></p>
     </div>
   </div>
 </body>
