@@ -3,16 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- point at your compiled CSS in ../dist: -->
-  <link rel="stylesheet" href="../dist/animated-stats.min.css"/>
-  <title>Animated Profile Stats</title>
+  <link rel="stylesheet" href="../src/style.css"/>
+  <title>Animated-Stats: Project Guide</title>
+  <style>
+    body { max-width: 700px; margin: 0 auto; font-family: 'Segoe UI', Arial, sans-serif; background: #f7fafd; color: #234; padding: 32px 12px; }
+    h1, h2 { color: #0277bd; }
+    code, pre { background: #e3f2fd; border-radius: 4px; padding: 2px 6px; }
+    .example-card { margin: 24px 0; text-align: center; }
+    .type-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+    .type-list span { background: #e0f7fa; border-radius: 12px; padding: 4px 12px; font-size: 1em; color: #0277bd; border: 1px solid #b3e5fc; }
+  </style>
 </head>
 <body>
-  <div>
-    <span class="badge common">Common</span>
-    <span class="badge uncommon">Uncommon</span>
-    <span class="badge rare">Rare</span>
-    <span class="badge epic">Epic</span>
+  <h1>Animated-Stats</h1>
+  <p><b>Animated-Stats</b> is a dynamic, Pokémon-inspired GitHub profile card generator. It fetches live GitHub stats for any user and displays them in a stylish, animated card with customizable themes and type icons.</p>
+
+  <h2>What Does It Do?</h2>
+  <ul>
+    <li>Fetches GitHub user stats (followers, stars, public repos, top languages, recent activity)</li>
+    <li>Displays them in a Pokémon-style card with animated, customizable themes</li>
+    <li>Lets you choose the user and card style via URL parameters</li>
+  </ul>
+
+  <h2>How to Use</h2>
+  <ol>
+    <li>Open the site in your browser (e.g., <code>https://your-vercel-url/</code>).</li>
+    <li>Add <code>?user=USERNAME</code> to the URL to show any GitHub user's stats.<br>
+      <b>Example:</b> <code>?user=Leorev01</code></li>
+    <li>Add <code>&type=TYPE</code> to change the card's style (see below for options).<br>
+      <b>Example:</b> <code>?user=Leorev01&amp;type=water</code></li>
+    <li>Share the link with others, or take a screenshot to use in your README.</li>
+  </ol>
+  <blockquote><b>Note:</b> GitHub READMEs do not support live HTML/JS. To embed the card as an image, use a screenshot.</blockquote>
+
+  <h2>Card Styles</h2>
+  <p>You can change the card's appearance by setting the <code>type</code> parameter in the URL. Supported types:</p>
+  <div class="type-list">
+    <span>normal</span><span>fire</span><span>water</span><span>electric</span><span>grass</span><span>ice</span><span>fighting</span><span>poison</span><span>ground</span><span>flying</span><span>psychic</span><span>bug</span><span>rock</span><span>ghost</span><span>dragon</span><span>dark</span><span>steel</span><span>fairy</span>
   </div>
+  <p>Each type changes the card's color and icon to match classic Pokémon types.</p>
+
+  <h2>Example</h2>
+  <div class="example-card">
+    <img src="../docs/example-card.png" alt="Example Animated-Stats Card" style="max-width: 350px; border-radius: 16px; box-shadow: 0 4px 16px #b3e5fc;"/>
+    <div style="margin-top: 8px; color: #607d8b; font-size: 0.98em;">Example: <code>?user=Leorev01&amp;type=water</code></div>
+  </div>
+
+  <h2>How to Add to Your Profile README</h2>
+  <ol>
+    <li>Take a screenshot of your card (or use a screenshot service).</li>
+    <li>Upload the image to your repository or an image host.</li>
+    <li>Add it to your <code>README.md</code> like this:<br>
+      <pre>![My Dev Card](https://your-image-url.png)</pre>
+    </li>
+    <li>Optionally, link the image to your live card:<br>
+      <pre>[![My Dev Card](https://your-image-url.png)](https://your-vercel-url/?user=USERNAME&amp;type=TYPE)</pre>
+    </li>
+  </ol>
+
+  <h2>License</h2>
+  <p>MIT</p>
 </body>
 </html>
