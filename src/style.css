@@ -1,3 +1,45 @@
+.dev-abilities {
+  list-style: none;
+  padding-left: 0;
+  margin: 6px 0 0 0;
+}
+.dev-abilities li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.08em;
+  margin-bottom: 2px;
+  padding: 0 0 0 0;
+}
+.dev-abilities .ability-label {
+  flex: 1 1 auto;
+  text-align: left;
+}
+.dev-abilities .ability-value {
+  flex: 0 0 auto;
+  min-width: 60px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 1.12em;
+  letter-spacing: 1px;
+}
+/* Water type icon styling */
+.type-icon.type-water {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 60% 40%, #4fc3f7 60%, #01579b 100%);
+  box-shadow: 0 0 8px 2px #4fc3f7, 0 2px 8px #01579b44;
+  margin-right: 12px;
+}
+.type-icon.type-water img {
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) saturate(100%) invert(0) sepia(0) saturate(0) hue-rotate(0deg) grayscale(1);
+}
 .dev-exp {
   font-size: 0.85em;
   color: #607d8b;
@@ -46,14 +88,13 @@
   margin-left: 16px;
   position: static;
   flex-shrink: 0;
-  align-self: flex-start;
 }
 .dev-heading {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.dev-card img {
+#dev-avatar {
   width: 220px;
   height: 220px;
   border: 3px solid #fff;
@@ -72,6 +113,7 @@
   margin: 8px 0;
   font-size: 1.08em;
   color: #01579b;
+  text-align: start;
 }
 .dev-card b {
   color: #0277bd;

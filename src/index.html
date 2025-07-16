@@ -9,8 +9,10 @@
   <script type="module">
     import {renderDevCard} from './script.js'
     document.addEventListener('DOMContentLoaded', () => {
-        renderDevCard('Leorev01', 'container-id')
-      })
+      const params = new URLSearchParams(window.location.search);
+      const user = params.get('user') || 'octocat';
+      renderDevCard(user, 'container-id');
+    })
 
   </script>
 
@@ -24,10 +26,16 @@
           <h3 id="dev-name"></h3>
         </div>
         <span class="hp-badge" id="dev-hp"></span>
+        <span class="type-icon type-water">
+          <img src="../assets/types/water.svg" alt="Water Type" />
+        </span>
       </div>
+      <hr style="margin-bottom: 30px;"/>
       <img id="dev-avatar" width="80" style="border-radius:50%">
       <p><b>Skills:</b> <span id="dev-skills"></span></p>
-      <p><b>Special Abilities:</b> <span id="dev-abilities"></span></p>
+      <p><b>Special Abilities:</b>
+        <ul id="dev-abilities" class="dev-abilities" style="margin: 6px 0 0 0; padding-left: 18px; text-align: left;"></ul>
+      </p>
       <p><b>Recent Activity:</b> <span id="dev-activity"></span></p>
     </div>
   </div>
