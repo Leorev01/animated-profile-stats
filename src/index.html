@@ -4,56 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blazing Trophies</title>
-  <style>
-    .trophy {
-      width: 80px;
-      margin: 20px;
-    }
-    .league-container {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      font-family: sans-serif;
-      text-align: center;
-    }
-    .label {
-      margin-top: 8px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="script.js"></script>
+  <script type="module">
+    document.addEventListener('DOMContentLoad', () => {
+        renderProfileBadges('#my-badges', {
+            username:'Leorev01',
+            token: process.env.GITHUB_CLIENT_SECRET
+        })
+    })
+  </script>
+
 </head>
 <body>
   <div class="league-container">
-    <!-- Bronze Trophy -->
     <div>
-      <img src="../assets/trophies/newbie.svg">
-      <div class="label">Newbie</div>
+      <img src="../assets/trophies/newbie.svg" class="trophy common">
+      <div class="label common">Newbie</div>
     </div>
-    <!-- Silver Trophy -->
     <div>
-      <img src="../assets//trophies/beginner.svg">
-      <div class="label">Beginner</div>
+      <img src="../assets/trophies/beginner.svg" class="trophy uncommon">
+      <div class="label uncommon">Beginner</div>
     </div>
-    <!-- Gold Trophy -->
     <div>
-      <img src="../assets/trophies/intermediate.svg">
-      <div class="label">Intermediate</div>
+      <img src="../assets/trophies/intermediate.svg" class="trophy rare">
+      <div class="label rare">Intermediate</div>
     </div>
-    <!-- Crystal Trophy -->
     <div>
-      <img src="../assets/trophies//expert.svg">
-      <div class="label">Expert</div>
+      <img src="../assets/trophies/expert.svg" class="trophy epic">
+      <div class="label epic">Expert</div>
     </div>
-    <!-- Master Trophy -->
     <div>
-      <img src="../assets/trophies/master.svg">
-      <div class="label">Master</div>
+      <img src="../assets/trophies/master.svg" class="trophy master">
+      <div class="label master">Master</div>
     </div>
-    <!-- Champion Trophy -->
     <div>
-      <img src="../assets/trophies/legendary.svg">
-      <div class="label">Legendary</div>
+      <img src="../assets/trophies/legendary.svg" class="trophy legendary">
+      <div class="label legendary">Legendary</div>
     </div>
   </div>
 </body>
