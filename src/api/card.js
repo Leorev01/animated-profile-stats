@@ -252,6 +252,9 @@ export default async function handler(req, res) {
         <filter id="iconGlow" x="-50%" y="-50%" width="200%" height="200%">
           <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#ffe066" flood-opacity="0.5"/>
         </filter>
+        <clipPath id="avatarClip">
+          <circle cx="240" cy="280" r="110"/>
+        </clipPath>
       </defs>
     
       <!-- Card Background -->
@@ -298,7 +301,7 @@ export default async function handler(req, res) {
         <circle cx="0" cy="0" r="110" fill="#fff" stroke="#b0bec5" stroke-width="3"/>
         ${avatarBase64 ? `
         <!-- Avatar Image (Base64) -->
-        <image href="${avatarBase64}" x="-110" y="-110" width="220" height="220"/>
+        <image href="${avatarBase64}" x="-110" y="-110" width="220" height="220" clip-path="url(#avatarClip)"/>
         ` : `
         <!-- Fallback Avatar Circle with Gradient -->
         <circle cx="0" cy="0" r="110" fill="url(#avatarGrad)"/>
