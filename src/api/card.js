@@ -2,7 +2,8 @@ export default async function handler(req, res) {
   // Add CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
+  res.setHeader('Access-Control-Max-Age', '86400');
   
   // Handle preflight requests
   if (req.method === 'OPTIONS') {
@@ -205,6 +206,7 @@ export default async function handler(req, res) {
       xmlns:xlink="http://www.w3.org/1999/xlink"
       width="480" height="600"
       viewBox="0 0 480 600"
+      style="font-family: Arial, sans-serif;"
     >
       <defs>
         <radialGradient id="cardGrad" cx="60%" cy="40%" r="120%">
@@ -283,7 +285,15 @@ export default async function handler(req, res) {
         <circle cx="0" cy="0" r="110" fill="#fff" stroke="#b0bec5" stroke-width="3"/>
         <image xlink:href="${userData.avatar_url}"
                x="-110" y="-110" width="220" height="220"
-               style="clip-path:circle(110px at 110px 110px)"/>
+               clip-path="url(#avatarClip)"
+               onerror="this.style.display='none'"/>
+        <!-- Fallback avatar if image fails -->
+        <circle cx="0" cy="0" r="110" fill="#e0e0e0" clip-path="url(#avatarClip)">
+          <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <text x="0" y="40" font-size="80" font-weight="bold" fill="#666" text-anchor="middle" clip-path="url(#avatarClip)">
+          ${(userData.name || userData.login).charAt(0).toUpperCase()}
+        </text>
       </g>
     
       <!-- Content Section -->
@@ -309,7 +319,10 @@ export default async function handler(req, res) {
       </g>
     </svg>`;
 
-  res.setHeader("Content-Type", "image/svg+xml");
+  // Set proper headers for SVG
+  res.setHeader("Content-Type", "image/svg+xml; charset=utf-8");
+  res.setHeader("Cache-Control", "public, max-age=3600"); // Cache for 1 hour
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.status(200).send(svg);
   } catch (error) {
     res.status(500).send(`<svg xmlns='http://www.w3.org/2000/svg' width='400' height='120'><text x='20' y='60' font-size='20' fill='red'>Error: ${error.message}</text></svg>`);
