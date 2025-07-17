@@ -198,8 +198,8 @@ export default async function handler(req, res) {
     const shadowColor = typeData.shadowColor;
     const iconSvg = typeData.iconSvg;
 
-    // Use avatar proxy URL
-    const avatarUrl = `${req.headers.host ? `https://${req.headers.host}` : 'http://localhost:3000'}/api/avatar-proxy?username=${username}`;
+    // Use avatar proxy URL (try relative path)
+    const avatarUrl = `/api/avatar-proxy?username=${username}`;
 
     // Enhanced SVG card template
     const svg = `<?xml version="1.0" encoding="UTF-8"?>
