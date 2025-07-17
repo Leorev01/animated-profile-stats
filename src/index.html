@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile Card SVG Generator</title>
+  <title>Pokemon Style Profile Card</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -81,11 +81,15 @@
       const embedUrl = document.getElementById('embed-url');
       
       try {
-        // Fetch the SVG from the API
-        const response = await fetch(`/api/card?username=${username}&type=${type}`);
+        // Fetch the SVG from the API (use relative path for deployment)
+        const apiUrl = `/api/card?username=${username}&type=${type}`;
+        console.log('Fetching from:', apiUrl);
+        
+        const response = await fetch(apiUrl);
         
         if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          const errorText = await response.text();
+          throw new Error(`HTTP ${response.status}: ${response.statusText}\nResponse: ${errorText}`);
         }
         
         const svgContent = await response.text();
@@ -97,17 +101,24 @@
           </div>
         `;
         
-        // Show embed URL
-        const currentUrl = window.location.origin + `/api/card?username=${username}&type=${type}`;
+        // Show embed URL (this will be the deployed URL when live)
+        const currentUrl = window.location.origin + apiUrl;
         embedUrl.textContent = currentUrl;
         urlInfo.style.display = 'block';
         
       } catch (error) {
+        console.error('Error details:', error);
         cardDisplay.innerHTML = `
           <div class="error">
             <h3>❌ Error Loading Card</h3>
-            <p>${error.message}</p>
-            <p>This might be due to GitHub API rate limits or an invalid username.</p>
+            <p><strong>Error:</strong> ${error.message}</p>
+            <p>This might be due to:</p>
+            <ul style="text-align: left; display: inline-block;">
+              <li>GitHub API rate limits</li>
+              <li>Invalid username</li>
+              <li>API endpoint not working on deployment</li>
+            </ul>
+            <p><strong>Try:</strong> <a href="/api/card?username=octocat&type=normal" target="_blank">Direct API test</a></p>
           </div>
         `;
       }
