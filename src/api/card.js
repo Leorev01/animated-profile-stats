@@ -2,8 +2,7 @@ export default async function handler(req, res) {
   // Add CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
-  res.setHeader('Access-Control-Max-Age', '86400');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   
   // Handle preflight requests
   if (req.method === 'OPTIONS') {
@@ -206,22 +205,34 @@ export default async function handler(req, res) {
       xmlns:xlink="http://www.w3.org/1999/xlink"
       width="480" height="600"
       viewBox="0 0 480 600"
-      style="font-family: Arial, sans-serif;"
     >
       <defs>
-        <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <radialGradient id="cardGrad" cx="60%" cy="40%" r="120%">
+          <stop offset="0%" style="stop-color:#fff;stop-opacity:1" />
+          <stop offset="15%" style="stop-color:${typeData.bgStops[0].split(' ')[0]};stop-opacity:1" />
+          <stop offset="40%" style="stop-color:${typeData.bgStops[0].split(' ')[0]};stop-opacity:1" />
+          <stop offset="60%" style="stop-color:${typeData.bgStops[1].split(' ')[0]};stop-opacity:1" />
+          <stop offset="85%" style="stop-color:#333;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#000;stop-opacity:1" />
+        </radialGradient>
+        <radialGradient id="iconGrad" cx="50%" cy="50%" r="50%">
           <stop offset="0%" style="stop-color:${typeData.bgStops[0].split(' ')[0]};stop-opacity:1" />
           <stop offset="100%" style="stop-color:${typeData.bgStops[1].split(' ')[0]};stop-opacity:1" />
-        </linearGradient>
-        <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:${typeData.bgStops[0].split(' ')[0]};stop-opacity:1" />
-          <stop offset="100%" style="stop-color:${typeData.bgStops[1].split(' ')[0]};stop-opacity:1" />
-        </linearGradient>
+        </radialGradient>
         <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
           <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="${typeData.shadowColor}" flood-opacity="0.4"/>
         </filter>
         <filter id="avatarShadow" x="-20%" y="-20%" width="140%" height="140%">
           <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#00838f" flood-opacity="0.3"/>
+        </filter>
+        <filter id="goldGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#ffe066" flood-opacity="0.7"/>
+        </filter>
+        <filter id="badgeGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#ffd600" flood-opacity="0.6"/>
+        </filter>
+        <filter id="iconGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#ffe066" flood-opacity="0.5"/>
         </filter>
         <clipPath id="avatarClip">
           <circle cx="240" cy="280" r="110"/>
@@ -230,7 +241,8 @@ export default async function handler(req, res) {
     
       <!-- Card Background -->
       <rect x="0" y="0" width="480" height="600" rx="18"
-            fill="url(#cardGrad)" stroke="#ffe066" stroke-width="4"/>
+            fill="url(#cardGrad)" stroke="#ffe066" stroke-width="4"
+            filter="url(#cardShadow)"/>
     
       <!-- Header Section -->
       <g font-family="Poppins, Segoe UI, Arial, sans-serif">
@@ -251,7 +263,7 @@ export default async function handler(req, res) {
           </g>
         <!-- Type Icon -->
         <g transform="translate(430,14)">
-          <circle cx="22" cy="22" r="22" fill="url(#iconGrad)" stroke="#fff" stroke-width="3"/>
+          <circle cx="22" cy="22" r="22" fill="url(#iconGrad)" stroke="#fff" stroke-width="3" filter="url(#cardShadow)"/>
           <g transform="translate(9,9) scale(0.05)">${iconSvg}</g>
         </g>
     
@@ -267,18 +279,11 @@ export default async function handler(req, res) {
     
       <!-- Avatar Section -->
       <g transform="translate(240,280)">
-        <circle cx="0" cy="0" r="116" fill="#fff"/>
+        <circle cx="0" cy="0" r="116" fill="#fff" filter="url(#avatarShadow)"/>
         <circle cx="0" cy="0" r="110" fill="#fff" stroke="#b0bec5" stroke-width="3"/>
         <image xlink:href="${userData.avatar_url}"
                x="-110" y="-110" width="220" height="220"
-               clip-path="url(#avatarClip)"/>
-        <!-- Fallback avatar if image fails -->
-        <circle cx="0" cy="0" r="110" fill="#e0e0e0" clip-path="url(#avatarClip)">
-          <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
-        </circle>
-        <text x="0" y="40" font-size="80" font-weight="bold" fill="#666" text-anchor="middle" clip-path="url(#avatarClip)">
-          ${(userData.name || userData.login).charAt(0).toUpperCase()}
-        </text>
+               style="clip-path:circle(110px at 110px 110px)"/>
       </g>
     
       <!-- Content Section -->
@@ -304,9 +309,9 @@ export default async function handler(req, res) {
       </g>
     </svg>`;
 
-  // Set proper headers for SVG
+  // Set proper headers for GitHub compatibility
   res.setHeader("Content-Type", "image/svg+xml; charset=utf-8");
-  res.setHeader("Cache-Control", "public, max-age=3600"); // Cache for 1 hour
+  res.setHeader("Cache-Control", "public, max-age=3600");
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.status(200).send(svg);
   } catch (error) {
