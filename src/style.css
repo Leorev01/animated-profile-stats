@@ -35,9 +35,8 @@
   box-shadow: var(--type-shadow, 0 0 8px 2px #b0bec5, 0 2px 8px #b0bec544);
 }
 .type-icon img {
-  width: 28px;
-  height: 28px;
-  filter: brightness(0) saturate(100%) invert(0) sepia(0) saturate(0) hue-rotate(0deg) grayscale(1);
+  width: 20px;
+  height: 20px;
 }
 .dev-exp {
   font-size: 0.85em;

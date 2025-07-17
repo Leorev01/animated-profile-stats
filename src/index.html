@@ -3,41 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile Card</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="script.js"></script>
-  <script type="module">
-    import {renderDevCard} from './script.js'
-    document.addEventListener('DOMContentLoaded', () => {
-      const params = new URLSearchParams(window.location.search);
-      const user = params.get('user') || 'octocat';
-      renderDevCard(user, 'container-id');
-    })
-
-  </script>
-
+  <title>Profile Card SVG Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .svg-container {
+      margin: 20px 0;
+      padding: 20px;
+      background: #fafafa;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+    }
+    .svg-container svg {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .url-display {
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 4px;
+      font-family: monospace;
+      word-break: break-all;
+      margin: 10px 0;
+    }
+    .error {
+      color: #d32f2f;
+      background: #ffebee;
+      padding: 10px;
+      border-radius: 4px;
+      margin: 10px 0;
+    }
+    .loading {
+      color: #1976d2;
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
-  <div id="container-id">
-    <div class="dev-card">
-      <div class="dev-heading">
-        <div style="display: flex; flex-direction: column; align-items: flex-start; flex: 1 1 auto;">
-          <span id="dev-exp" class="dev-exp"></span>
-          <h3 id="dev-name"></h3>
-        </div>
-        <span class="hp-badge" id="dev-hp"></span>
-        <span class="type-icon type-water">
-          <img src="assets/types/normal.svg" alt="Normal Type" />
-        </span>
-      </div>
-      <hr style="margin-bottom: 30px;"/>
-      <img id="dev-avatar" width="80" style="border-radius:50%">
-      <p><b>Skills:</b> <span id="dev-skills"></span></p>
-      <p><b>Special Abilities:</b>
-        <ul id="dev-abilities" class="dev-abilities" style="margin: 6px 0 0 0; padding-left: 18px; text-align: left;"></ul>
-      </p>
-      <p><b>Recent Activity:</b> <span id="dev-activity"></span></p>
+  <div class="container">
+    <h1>🎮 Pokémon-Style Profile Card Generator</h1>
+    <p>Generate animated profile cards for your GitHub profile!</p>
+    
+    <div id="card-display">
+      <div class="loading">Loading your profile card...</div>
+    </div>
+    
+    <div id="url-info" style="display: none;">
+      <h3>📋 Embed URL for GitHub README:</h3>
+      <div class="url-display" id="embed-url"></div>
+      <p><small>Copy this URL to embed the card in your GitHub README!</small></p>
     </div>
   </div>
+
+  <script>
+    async function loadCard() {
+      const params = new URLSearchParams(window.location.search);
+      const username = params.get('username') || 'octocat';
+      const type = params.get('type') || 'normal';
+      
+      const cardDisplay = document.getElementById('card-display');
+      const urlInfo = document.getElementById('url-info');
+      const embedUrl = document.getElementById('embed-url');
+      
+      try {
+        // Fetch the SVG from the API
+        const response = await fetch(`/api/card?username=${username}&type=${type}`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const svgContent = await response.text();
+        
+        // Display the SVG
+        cardDisplay.innerHTML = `
+          <div class="svg-container">
+            ${svgContent}
+          </div>
+        `;
+        
+        // Show embed URL
+        const currentUrl = window.location.origin + `/api/card?username=${username}&type=${type}`;
+        embedUrl.textContent = currentUrl;
+        urlInfo.style.display = 'block';
+        
+      } catch (error) {
+        cardDisplay.innerHTML = `
+          <div class="error">
+            <h3>❌ Error Loading Card</h3>
+            <p>${error.message}</p>
+            <p>This might be due to GitHub API rate limits or an invalid username.</p>
+          </div>
+        `;
+      }
+    }
+    
+    // Load card when page loads
+    document.addEventListener('DOMContentLoaded', loadCard);
+  </script>
 </body>
 </html>
