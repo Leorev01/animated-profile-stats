@@ -251,7 +251,7 @@ export default async function handler(req, res) {
       <!-- Header Section -->
       <g font-family="Poppins, Segoe UI, Arial, sans-serif">
         <!-- Experience Level -->
-        <text x="32" y="44" font-size="14" font-weight="500" fill="#fff">
+        <text x="32" y="44" font-size="14" font-weight="500" letter-spacing="1" opacity="0.85" fill="#fff" style="text-transform:uppercase;">
           ${level.toUpperCase()}
         </text>
     
@@ -261,7 +261,7 @@ export default async function handler(req, res) {
                 fill="#ffd600" 
                 stroke="#ffd600" stroke-width="3"/>
           <rect x="3" y="3" rx="19" width="184" height="42" fill="none" stroke="#fffde7" stroke-width="2"/>
-          <text x="95" y="28" font-size="18" font-weight="bold" fill="#fff" text-anchor="middle">
+          <text x="95" y="28" font-size="18" font-weight="bold" fill="#fff" letter-spacing="1" text-anchor="middle">
               Followers: ${userData.followers}
             </text>
           </g>
@@ -272,7 +272,7 @@ export default async function handler(req, res) {
         </g>
     
         <!-- Name -->
-        <text x="32" y="100" font-size="40" font-weight="bold" fill="#fff">
+        <text x="32" y="100" font-size="40" font-weight="bold" letter-spacing="1" fill="#fff">
           ${userData.name || userData.login}
         </text>
       </g>
@@ -292,7 +292,7 @@ export default async function handler(req, res) {
           ${(userData.name || userData.login).charAt(0).toUpperCase()}
         </text>
         <!-- Decorative Ring -->
-        <circle cx="0" cy="0" r="110" fill="none" stroke="#fff" stroke-width="3"/>
+        <circle cx="0" cy="0" r="110" fill="none" stroke="#fff" stroke-width="3" opacity="0.3"/>
       </g>
     
       <!-- Content Section -->
