@@ -253,7 +253,7 @@ export default async function handler(req, res) {
           <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#ffe066" flood-opacity="0.5"/>
         </filter>
         <clipPath id="avatarClip">
-          <circle cx="240" cy="280" r="110"/>
+          <circle cx="0" cy="0" r="110"/>
         </clipPath>
       </defs>
     
