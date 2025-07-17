@@ -301,7 +301,7 @@ export default async function handler(req, res) {
         <circle cx="0" cy="0" r="110" fill="#fff" stroke="#b0bec5" stroke-width="3"/>
         ${avatarBase64 ? `
         <!-- Avatar Image -->
-        <image xlink:href="${avatarBase64}" x="-110" y="-110" width="220" height="220" clip-path="url(#avatarClip)"/>
+        <image href="${avatarBase64}" x="-110" y="-110" width="220" height="220" clip-path="url(#avatarClip)"/>
         ` : `
         <!-- Fallback Avatar Circle with Gradient -->
         <circle cx="0" cy="0" r="110" fill="url(#avatarGrad)" clip-path="url(#avatarClip)"/>
