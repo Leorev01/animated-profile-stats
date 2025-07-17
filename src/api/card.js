@@ -198,9 +198,14 @@ export default async function handler(req, res) {
     const shadowColor = typeData.shadowColor;
     const iconSvg = typeData.iconSvg;
 
-    // GitHub-compatible SVG card template
+    // Enhanced SVG card template
     const svg = `<?xml version="1.0" encoding="UTF-8"?>
-    <svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      width="480" height="600"
+      viewBox="0 0 480 600"
+    >
       <defs>
         <radialGradient id="cardGrad" cx="60%" cy="40%" r="120%">
           <stop offset="0%" style="stop-color:#fff;stop-opacity:1" />
@@ -210,48 +215,75 @@ export default async function handler(req, res) {
           <stop offset="85%" style="stop-color:#333;stop-opacity:1" />
           <stop offset="100%" style="stop-color:#000;stop-opacity:1" />
         </radialGradient>
+        <radialGradient id="iconGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" style="stop-color:${typeData.bgStops[0].split(' ')[0]};stop-opacity:1" />
+          <stop offset="100%" style="stop-color:${typeData.bgStops[1].split(' ')[0]};stop-opacity:1" />
+        </radialGradient>
         <radialGradient id="avatarGrad" cx="30%" cy="30%" r="70%">
           <stop offset="0%" style="stop-color:${typeData.bgStops[0].split(' ')[0]};stop-opacity:0.8" />
           <stop offset="100%" style="stop-color:${typeData.bgStops[1].split(' ')[0]};stop-opacity:0.6" />
         </radialGradient>
+        <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="${typeData.shadowColor}" flood-opacity="0.4"/>
+        </filter>
+        <filter id="avatarShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#00838f" flood-opacity="0.3"/>
+        </filter>
+        <filter id="goldGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#ffe066" flood-opacity="0.7"/>
+        </filter>
+        <filter id="badgeGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#ffd600" flood-opacity="0.6"/>
+        </filter>
+        <filter id="iconGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#ffe066" flood-opacity="0.5"/>
+        </filter>
         <clipPath id="avatarClip">
           <circle cx="240" cy="280" r="110"/>
         </clipPath>
       </defs>
     
       <!-- Card Background -->
-      <rect x="0" y="0" width="480" height="600" rx="18" fill="url(#cardGrad)" stroke="#ffe066" stroke-width="4"/>
+      <rect x="0" y="0" width="480" height="600" rx="18"
+            fill="url(#cardGrad)" stroke="#ffe066" stroke-width="4"
+            filter="url(#cardShadow)"/>
     
       <!-- Header Section -->
-      <g font-family="Arial, sans-serif">
+      <g font-family="Poppins, Segoe UI, Arial, sans-serif">
         <!-- Experience Level -->
-        <text x="32" y="44" font-size="14" font-weight="500" fill="#fff">
+        <text x="32" y="44" font-size="14" font-weight="500" letter-spacing="1" opacity="0.85" fill="#fff" style="text-transform:uppercase;">
           ${level.toUpperCase()}
         </text>
     
-        <!-- Followers Badge -->
-        <rect x="230" y="14" rx="22" width="190" height="48" fill="#ffd600" stroke="#ffd600" stroke-width="3"/>
-        <rect x="233" y="17" rx="19" width="184" height="42" fill="none" stroke="#fffde7" stroke-width="2"/>
-        <text x="325" y="42" font-size="18" font-weight="bold" fill="#fff" text-anchor="middle">
-          Followers: ${userData.followers}
-        </text>
-    
+          <!-- Followers Badge -->
+        <g transform="translate(230,14)">
+          <rect x="0" y="0" rx="22" width="190" height="48" 
+                fill="#ffd600" 
+                stroke="#ffd600" stroke-width="3"/>
+          <rect x="3" y="3" rx="19" width="184" height="42" fill="none" stroke="#fffde7" stroke-width="2"/>
+          <text x="95" y="28" font-size="18" font-weight="bold" fill="#fff" letter-spacing="1" text-anchor="middle">
+              Followers: ${userData.followers}
+            </text>
+          </g>
         <!-- Type Icon -->
-        <circle cx="452" cy="36" r="22" fill="${typeData.bgStops[0].split(' ')[0]}" stroke="#fff" stroke-width="3"/>
-        <g transform="translate(430,14) scale(0.05)">${iconSvg}</g>
+        <g transform="translate(430,14)">
+          <circle cx="22" cy="22" r="22" fill="url(#iconGrad)" stroke="#fff" stroke-width="3" filter="url(#cardShadow)"/>
+          <g transform="translate(9,9) scale(0.05)">${iconSvg}</g>
+        </g>
     
         <!-- Name -->
-        <text x="32" y="100" font-size="40" font-weight="bold" fill="#fff">
+        <text x="32" y="100" font-size="40" font-weight="bold" letter-spacing="1" fill="#fff">
           ${userData.name || userData.login}
         </text>
       </g>
     
       <!-- Divider Line -->
-      <line x1="32" y1="112" x2="448" y2="112" stroke="#fff" stroke-opacity="0.5" stroke-width="1"/>
+      <line x1="32" y1="112" x2="448" y2="112"
+            stroke="#fff" stroke-opacity="0.5" stroke-width="1"/>
     
       <!-- Avatar Section -->
       <g transform="translate(240,280)">
-        <circle cx="0" cy="0" r="116" fill="#fff"/>
+        <circle cx="0" cy="0" r="116" fill="#fff" filter="url(#avatarShadow)"/>
         <circle cx="0" cy="0" r="110" fill="#fff" stroke="#b0bec5" stroke-width="3"/>
         <!-- Avatar Circle with Gradient -->
         <circle cx="0" cy="0" r="110" fill="url(#avatarGrad)" clip-path="url(#avatarClip)"/>
@@ -264,7 +296,7 @@ export default async function handler(req, res) {
       </g>
     
       <!-- Content Section -->
-      <g font-family="Arial, sans-serif" fill="#fff">
+      <g font-family="Poppins, Segoe UI, Arial, sans-serif" fill="#fff">
         <!-- Skills -->
         <text x="32" y="420" font-size="18">
           <tspan font-weight="bold">Skills:</tspan> ${await getTopLangs(username, headers)}
