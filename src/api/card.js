@@ -198,19 +198,8 @@ export default async function handler(req, res) {
     const shadowColor = typeData.shadowColor;
     const iconSvg = typeData.iconSvg;
 
-    // Fetch and convert avatar to base64
-    let avatarBase64 = '';
-    try {
-      const avatarResponse = await fetch(userData.avatar_url);
-      if (avatarResponse.ok) {
-        const avatarBuffer = await avatarResponse.arrayBuffer();
-        const base64 = Buffer.from(avatarBuffer).toString('base64');
-        const contentType = avatarResponse.headers.get('content-type') || 'image/jpeg';
-        avatarBase64 = `data:${contentType};base64,${base64}`;
-      }
-    } catch (error) {
-      console.log('Failed to fetch avatar:', error.message);
-    }
+    // Use avatar proxy URL
+    const avatarUrl = `${req.headers.host ? `https://${req.headers.host}` : 'http://localhost:3000'}/api/avatar-proxy?username=${username}`;
 
     // Enhanced SVG card template
     const svg = `<?xml version="1.0" encoding="UTF-8"?>
@@ -299,17 +288,14 @@ export default async function handler(req, res) {
       <g transform="translate(240,280)">
         <circle cx="0" cy="0" r="116" fill="#fff" filter="url(#avatarShadow)"/>
         <circle cx="0" cy="0" r="110" fill="#fff" stroke="#b0bec5" stroke-width="3"/>
-        ${avatarBase64 ? `
         <!-- Avatar Image -->
-        <image href="${avatarBase64}" x="-110" y="-110" width="220" height="220" clip-path="url(#avatarClip)"/>
-        ` : `
+        <image href="${avatarUrl}" x="-110" y="-110" width="220" height="220" clip-path="url(#avatarClip)"/>
         <!-- Fallback Avatar Circle with Gradient -->
         <circle cx="0" cy="0" r="110" fill="url(#avatarGrad)" clip-path="url(#avatarClip)"/>
         <!-- User Initials -->
         <text x="0" y="40" font-size="80" font-weight="bold" fill="#fff" text-anchor="middle" clip-path="url(#avatarClip)">
           ${(userData.name || userData.login).charAt(0).toUpperCase()}
         </text>
-        `}
         <!-- Decorative Ring -->
         <circle cx="0" cy="0" r="110" fill="none" stroke="#fff" stroke-width="3" opacity="0.3"/>
       </g>
