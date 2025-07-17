@@ -298,8 +298,12 @@ export default async function handler(req, res) {
         <circle cx="0" cy="0" r="116" fill="#fff" filter="url(#avatarShadow)"/>
         <circle cx="0" cy="0" r="110" fill="#fff" stroke="#b0bec5" stroke-width="3"/>
         ${avatarBase64 ? `
-        <!-- Avatar Image (Base64) -->
-        <image href="${avatarBase64}" x="-110" y="-110" width="220" height="220"/>
+        <!-- Avatar Image (Base64) with CSS Border Radius -->
+        <foreignObject x="-110" y="-110" width="220" height="220">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="width: 220px; height: 220px; border-radius: 50%; overflow: hidden;">
+            <img src="${avatarBase64}" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+        </foreignObject>
         ` : `
         <!-- Fallback Avatar Circle with Gradient -->
         <circle cx="0" cy="0" r="110" fill="url(#avatarGrad)"/>
