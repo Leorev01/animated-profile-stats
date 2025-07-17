@@ -32,8 +32,8 @@ We welcome feature suggestions! When suggesting:
 1. **Fork the repository**
 2. **Clone your fork:**
    ```bash
-   git clone https://github.com/your-username/animated-profile-stats.git
-   cd animated-profile-stats
+   git clone https://github.com/Leorev01/pokemon-profile-card.git
+   cd pokrmeo
    ```
 3. **Install dependencies:**
    ```bash
