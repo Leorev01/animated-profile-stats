@@ -198,9 +198,6 @@ export default async function handler(req, res) {
     const shadowColor = typeData.shadowColor;
     const iconSvg = typeData.iconSvg;
 
-    // Use avatar proxy URL (try relative path)
-    const avatarUrl = `/api/avatar-proxy?username=${username}`;
-
     // Enhanced SVG card template
     const svg = `<?xml version="1.0" encoding="UTF-8"?>
     <svg
@@ -241,9 +238,6 @@ export default async function handler(req, res) {
         <filter id="iconGlow" x="-50%" y="-50%" width="200%" height="200%">
           <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#ffe066" flood-opacity="0.5"/>
         </filter>
-        <clipPath id="avatarClip">
-          <circle cx="240" cy="280" r="110"/>
-        </clipPath>
       </defs>
     
       <!-- Card Background -->
@@ -287,13 +281,9 @@ export default async function handler(req, res) {
       <!-- Avatar Section -->
       <g transform="translate(240,280)">
         <circle cx="0" cy="0" r="116" fill="#fff" filter="url(#avatarShadow)"/>
-        <circle cx="0" cy="0" r="110" fill="#fff" stroke="#b0bec5" stroke-width="3"/>
-        <!-- Avatar Image -->
-        <image href="${avatarUrl}" x="-110" y="-110" width="220" height="220" clip-path="url(#avatarClip)"/>
-        <!-- Fallback Avatar Circle with Gradient -->
-        <circle cx="0" cy="0" r="110" fill="url(#avatarGrad)" clip-path="url(#avatarClip)"/>
+        <circle cx="0" cy="0" r="110" fill="url(#avatarGrad)" stroke="#b0bec5" stroke-width="3"/>
         <!-- User Initials -->
-        <text x="0" y="40" font-size="80" font-weight="bold" fill="#fff" text-anchor="middle" clip-path="url(#avatarClip)">
+        <text x="0" y="40" font-size="80" font-weight="bold" fill="#fff" text-anchor="middle">
           ${(userData.name || userData.login).charAt(0).toUpperCase()}
         </text>
         <!-- Decorative Ring -->
