@@ -219,6 +219,10 @@ export default async function handler(req, res) {
           <stop offset="0%" style="stop-color:${typeData.bgStops[0].split(' ')[0]};stop-opacity:1" />
           <stop offset="100%" style="stop-color:${typeData.bgStops[1].split(' ')[0]};stop-opacity:1" />
         </radialGradient>
+        <radialGradient id="avatarGrad" cx="30%" cy="30%" r="70%">
+          <stop offset="0%" style="stop-color:${typeData.bgStops[0].split(' ')[0]};stop-opacity:0.8" />
+          <stop offset="100%" style="stop-color:${typeData.bgStops[1].split(' ')[0]};stop-opacity:0.6" />
+        </radialGradient>
         <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
           <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="${typeData.shadowColor}" flood-opacity="0.4"/>
         </filter>
@@ -281,9 +285,14 @@ export default async function handler(req, res) {
       <g transform="translate(240,280)">
         <circle cx="0" cy="0" r="116" fill="#fff" filter="url(#avatarShadow)"/>
         <circle cx="0" cy="0" r="110" fill="#fff" stroke="#b0bec5" stroke-width="3"/>
-        <image xlink:href="${userData.avatar_url}"
-               x="-110" y="-110" width="220" height="220"
-               style="clip-path:circle(110px at 110px 110px)"/>
+        <!-- Avatar Circle with Gradient -->
+        <circle cx="0" cy="0" r="110" fill="url(#avatarGrad)" clip-path="url(#avatarClip)"/>
+        <!-- User Initials -->
+        <text x="0" y="40" font-size="80" font-weight="bold" fill="#fff" text-anchor="middle" clip-path="url(#avatarClip)">
+          ${(userData.name || userData.login).charAt(0).toUpperCase()}
+        </text>
+        <!-- Decorative Ring -->
+        <circle cx="0" cy="0" r="110" fill="none" stroke="#fff" stroke-width="3" opacity="0.3"/>
       </g>
     
       <!-- Content Section -->
