@@ -4,21 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pokemon Style Profile Card</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>🎮 Pokémon-Style Profile Card Generator</h1>
-    <p>Generate animated profile cards for your GitHub profile!</p>
+    <div class="header">
+      <h1>🎮 Pokémon-Style Profile Card Generator</h1>
+      <p>Generate animated profile cards for your GitHub profile with stunning visual effects!</p>
+    </div>
     
     <div id="card-display">
       <div class="loading">Loading your profile card...</div>
     </div>
     
     <div id="url-info" style="display: none;">
-      <h3>📋 Embed URL for GitHub README:</h3>
-      <div class="url-display" id="embed-url"></div>
-      <p><small>Copy this URL to embed the card in your GitHub README!</small></p>
+      <div class="url-section">
+        <h3>📋 Embed URL for GitHub README</h3>
+        <div class="url-display" id="embed-url"></div>
+        <p><small>✨ Copy this URL to embed the card in your GitHub README!</small></p>
+        <p><small>🔧 Make sure you set your username in the URL and type in the URL</small></p>
+      </div>
     </div>
   </div>
 
@@ -65,7 +71,7 @@
             <h3>❌ Error Loading Card</h3>
             <p><strong>Error:</strong> ${error.message}</p>
             <p>This might be due to:</p>
-            <ul style="text-align: left; display: inline-block;">
+            <ul>
               <li>GitHub API rate limits</li>
               <li>Invalid username</li>
               <li>API endpoint not working on deployment</li>
